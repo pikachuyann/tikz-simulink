@@ -1,0 +1,11 @@
+stages:
+  - docbuild
+
+Documentation:
+  stage: docbuild
+  script:
+    - pdflatex simulink.tex
+    - pdflatex simulink.tex
+  artifacts:
+    paths:
+      - simulink.pdf
