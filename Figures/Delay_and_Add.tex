@@ -1,0 +1,16 @@
+\begin{tikzpicture}
+    \node[skConstant,draw,cstval=1] at (0,0.1cm) (b1) {};
+    \node[skAdd,draw,block height=1.2cm] at (5cm,-0.2cm) (b2) {};
+    \node[skUnitDelay,draw] at (2cm,-0.5cm) (b3) {};
+    \node[skOutport,draw] at (8cm,-0.2cm) (b4) {};
+    \path[->] (b3.portB) edge node[below] {$\ell_2$} (b2.portB);
+    \path[->] (b1.portA) edge node[above] {$\ell_1$} (b2.portA);
+    \path[->] (b2.portC) edge node[above] {$\ell_3$} (b4.portA);
+    \coordinate[right=1cm of b2.portC] (c3);
+    \coordinate[below=1.2cm of c3] (c4);
+    \coordinate[left=1cm of b3.portA] (c5);
+    \coordinate[below=0.9cm of c5] (c6);
+    \path (b2.portC) edge (c3); \path (c3) edge (c4);
+    \path (c4) edge (c6); \path (c6) edge (c5);
+    \path[->] (c5) edge (b3.portA);
+\end{tikzpicture}

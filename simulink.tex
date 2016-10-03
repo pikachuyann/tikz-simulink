@@ -1,0 +1,79 @@
+% simulink.tex --- Documentation (and examples) for the LaTeX package.
+%% Copyright 2016 Yann Duplouy
+%
+% Permission is hereby granted, free of charge, to any person obtaining a copy
+% of this software and associated documentation files (the "Software"), to deal
+% in the Software without restriction, including without limitation the rights
+% to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+% copies of the Software, and to permit persons to whom the Software is
+% furnished to do so, subject to the following conditions:
+%
+% The above copyright notice and this permission notice shall be included in
+% all copies or substantial portions of the Software.
+%
+% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+% IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+% FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+% AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+% LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+% OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+% SOFTWARE.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LaTeX Preamble %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper]{article}
+
+\usepackage{a4wide}
+\usepackage{hyperref}
+\usepackage{moreverb}
+\usepackage{simulink}
+\usepackage{caption}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Document References %%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\skstyversion}{$\alpha$ release}
+\title{simulink.sty --- A \LaTeX{} package to easily create Simulink models
+       with TikZ.\\ {\large \skstyversion}}
+\author{(c) 2016 Yann Duplouy}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+    \maketitle
+    \vspace{-0.5cm}
+
+    \tableofcontents
+    \clearpage
+
+\section{Introduction}
+    {\tt simulink.sty} is a \LaTeX{} package that defines new TikZ (or more
+exactly, PGF) shapes that depict various Simulink blocks. This package should
+allow to draw more precisely Simulink models, and replace the current way of
+drawing Simulink models, which is by taking screenshots of Matlab-Simulink.
+
+\section{Currently available Simulink Blocks}
+    The following Simulink blocks are currently available in the package :
+\begin{center}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        {\bf Block Name} & {\bf Shape Name} & {\bf Default shape} \\
+        \hline \hline
+        Inport & {\tt skInport} & \skBlockO{skInport}{$\ell_1$} \\
+        \hline
+        Outport & {\tt skOutport} & \skBlockI{skOutport}{$\ell_1$} \\
+        \hline
+        Constant & {\tt skConstant} & \skBlockO{skConstant,cstval=$c$}{$\ell_1$} \\
+        \hline
+        Add (2-ports) & {\tt skAdd} & \skBlockIIO{skAdd}{$\ell_1$}{$\ell_2$}{$\ell_3$} \\
+        \hline
+        Unit Delay & {\tt skUnitDelay} & \skBlockIO{skUnitDelay}{$\ell_1$}{$\ell_2$} \\
+        \hline
+    \end{tabular}
+\end{center}
+
+\section{An example of Simulink model drawn through TikZ}
+\begin{center}
+    \input{Figures/Delay_and_Add.tex}
+    \captionof{figure}{A small Simulink model} \label{DelayAndAdd}
+\end{center}
+    One might draw the Simulink model shown in figure \ref{DelayAndAdd} by
+writing the following \LaTeX{} code :
+\verbatiminput{Figures/Delay_and_Add.tex}
+\end{document}
