@@ -1,0 +1,283 @@
+% simulink.sty --- a LaTeX package to more easily write Simulink models
+%                  through TikZ environments, by providing Simulink blocks
+%                  as directly usable TikZ shapes.
+%% Copyright 2016 Yann Duplouy
+%
+% Permission is hereby granted, free of charge, to any person obtaining a copy
+% of this software and associated documentation files (the "Software"), to deal
+% in the Software without restriction, including without limitation the rights
+% to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+% copies of the Software, and to permit persons to whom the Software is
+% furnished to do so, subject to the following conditions:
+%
+% The above copyright notice and this permission notice shall be included in
+% all copies or substantial portions of the Software.
+%
+% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+% IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+% FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+% AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+% LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+% OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+% SOFTWARE.
+%
+%%%%%%%%%%%%%%%%%%%%%%%% Package Identification %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{simulink}[2016/10/03 v0.02 Simulink Shapes for TikZ]
+
+%%%%%%%%%%%%%%%%%%%%%%%% Package Requirements %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% As this is a TikZ package, we should verify that the document actually have
+% included tikz. If not, we load it.
+\RequirePackage{tikz}
+\usetikzlibrary{shapes,positioning}
+% The following package is required to use \widthof :
+\RequirePackage{calc}
+
+%%%%%%%%%%%%%%%%%%%%%%%% Initial Code %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatletter
+
+%%%%%%%%%%%%%%%%%% Management of tikz keys used in the package %%%%%%%%%%%%%%%%
+\tikzset{port number/.initial=1}        % This key is used to show the port
+                                        % nunmber on Inport and Outport blocks.
+\tikzset{block width/.initial=0cm}      % These keys allow customising the size
+\tikzset{block height/.initial=0cm}     % of Simulink blocks.
+\tikzset{cstval/.initial=1}             % This key is used to set the initial
+                                        % value of a Constant block.
+
+%%%%%%%%%%%%%%%%%%%%%% Simulink Block definitions %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% [ Source Block : <Inport> ]
+% http://www.mathworks.com/help/simulink/slref/inport.html
+\pgfdeclareshape{skInport}
+{
+    \savedanchor{\center}{\pgfpointorigin}
+    \anchor{center}{\center}
+
+    % Size management
+    \saveddimen\halfwidth{
+        \pgf@xa=0cm
+        \pgfmathsetlength\pgf@x{\pgfkeysvalueof{/tikz/block width}/2}
+        \ifdim\pgf@xa=\pgf@x \pgf@x=0.4cm \fi
+    }
+    \saveddimen\halfheight{
+        \pgf@xa=0cm
+        \pgfmathsetlength\pgf@x{\pgfkeysvalueof{/tikz/block height}/2}
+        \ifdim\pgf@xa=\pgf@x \pgf@x=0.15cm \fi
+    }
+    
+    \anchor{portA}{\pgfqpoint{\halfwidth}{0cm}}
+    \backgroundpath{
+        % Display port number :
+        \pgfkeysgetvalue{/tikz/port number}{\portnumber}
+        \pgftext{\portnumber}
+        % Draw the Simulink block using the given size. This follow Simulink's
+        % behavior when drawing the Inport block :
+        \ifdim\halfwidth>\halfheight%
+            \pgfmathsetlength{\pgf@xa}{\halfwidth-\halfheight}
+            \pgfpathmoveto{\pgfqpoint{-\pgf@xa}{\halfheight}}
+            \pgfpathlineto{\pgfqpoint{\pgf@xa}{\halfheight}}
+            \pgfpathmoveto{\pgfqpoint{-\pgf@xa}{-\halfheight}}
+            \pgfpathlineto{\pgfqpoint{\pgf@xa}{-\halfheight}}
+        \else
+            \pgfmathsetlength{\pgf@xa}{\halfheight-\halfwidth}
+            \pgfpathmoveto{\pgfqpoint{\halfwidth}{\pgf@xa}}
+            \pgfpatharc{0}{180}{\halfwidth}
+            \pgfpathmoveto{\pgfqpoint{-\halfwidth}{-\pgf@xa}}
+            \pgfpatharc{180}{360}{\halfwidth}
+        \fi
+        \ifdim\halfheight>\halfwidth%
+            \pgfpathmoveto{\pgfqpoint{\halfwidth}{-\pgf@xa}}
+            \pgfpathlineto{\pgfqpoint{\halfwidth}{\pgf@xa}}
+            \pgfpathmoveto{\pgfqpoint{-\halfwidth}{-\pgf@xa}}
+            \pgfpathlineto{\pgfqpoint{-\halfwidth}{\pgf@xa}}
+        \else
+            \pgfmathsetlength{\pgf@xa}{\halfwidth-\halfheight}
+            \pgfpathmoveto{\pgfqpoint{\pgf@xa}{-\halfheight}}
+            \pgfpatharc{-90}{90}{\halfheight}
+            \pgfpathmoveto{\pgfqpoint{-\pgf@xa}{\halfheight}}
+            \pgfpatharc{90}{270}{\halfheight}
+        \fi
+    }
+}
+
+% [ Source Block : <Constant> ]
+% http://www.mathworks.com/help/simulink/slref/constant.html
+\tikzset{cstval/.initial=1}
+\pgfdeclareshape{skConstant}
+{
+    \savedanchor{\center}{\pgfpointorigin}
+    \anchor{center}{\center}
+
+    % Size management
+    \saveddimen\halfwidth{
+        \pgf@xa=0cm
+        \pgfmathsetlength\pgf@x{\pgfkeysvalueof{/tikz/block width}/2}
+        \ifdim\pgf@xa=\pgf@x \pgf@x=0.4cm \fi
+    }
+    \saveddimen\halfheight{
+        \pgf@xa=0cm
+        \pgfmathsetlength\pgf@x{\pgfkeysvalueof{/tikz/block height}/2}
+        \ifdim\pgf@xa=\pgf@x \pgf@x=0.4cm \fi
+    }
+
+    \anchor{portA}{\pgfqpoint{\halfwidth}{0cm}}
+    \backgroundpath{
+        \pgfkeysgetvalue{/tikz/cstval}{\cstval}
+        \pgftext{\cstval}
+        \pgfpathmoveto{\pgfqpoint{\halfwidth}{\halfheight}}
+        \pgfpathlineto{\pgfqpoint{\halfwidth}{-\halfheight}}
+        \pgfpathlineto{\pgfqpoint{-\halfwidth}{-\halfheight}}
+        \pgfpathlineto{\pgfqpoint{-\halfwidth}{\halfheight}}
+        \pgfpathlineto{\pgfqpoint{\halfwidth}{\halfheight}}
+    }
+}
+
+% [ Block : <Unit Delay> ]
+% https://fr.mathworks.com/help/simulink/slref/unitdelay.html
+\pgfdeclareshape{skUnitDelay}
+{
+    \savedanchor{\center}{\pgfpointorigin}
+    \anchor{center}{\center}
+
+    % Size management
+    \saveddimen\halfwidth{
+        \pgf@xa=0cm
+        \pgfmathsetlength\pgf@x{\pgfkeysvalueof{/tikz/block width}/2}
+        \ifdim\pgf@xa=\pgf@x \pgf@x=0.4cm \fi
+    }
+    \saveddimen\halfheight{
+        \pgf@xa=0cm
+        \pgfmathsetlength\pgf@x{\pgfkeysvalueof{/tikz/block height}/2}
+        \ifdim\pgf@xa=\pgf@x \pgf@x=0.4cm \fi
+    }
+
+    \anchor{portA}{\pgfqpoint{-\halfwidth}{0cm}}
+    \anchor{portB}{\pgfqpoint{\halfwidth}{0cm}}
+    \backgroundpath{
+        \pgftext{$\frac{1}{\mathrm{z}}$}
+        \pgfpathmoveto{\pgfqpoint{\halfwidth}{\halfheight}}
+        \pgfpathlineto{\pgfqpoint{\halfwidth}{-\halfheight}}
+        \pgfpathlineto{\pgfqpoint{-\halfwidth}{-\halfheight}}
+        \pgfpathlineto{\pgfqpoint{-\halfwidth}{\halfheight}}
+        \pgfpathlineto{\pgfqpoint{\halfwidth}{\halfheight}}
+    }
+
+}
+
+% [ Arithmetic Block : <Binary Addition> ]
+% http://www.mathworks.com/help/simulink/slref/add.html
+%
+% ToDo : The current version of the Addition block is uncomplete in two ways :
+%   a. It only takes two inputs, while the Simulink block can take any integer
+%      number of inputs
+%   b. It only uses plus sign, while the Simulink block can also use the minus
+%      sign or specify spacers for clarity (when there is a lot of inputs).
+\pgfdeclareshape{skAdd}
+{
+    \savedanchor{\center}{\pgfpointorigin}
+    \anchor{center}{\center}
+
+    \saveddimen\halfwidth{
+        \pgf@xa=0cm
+        \pgfmathsetlength\pgf@x{\pgfkeysvalueof{/tikz/block width}/2}
+        \ifdim\pgf@xa=\pgf@x \pgf@x=0.4cm \fi
+    }
+    \saveddimen\halfheight{
+        \pgf@xa=0cm
+        \pgfmathsetlength\pgf@x{\pgfkeysvalueof{/tikz/block height}/2}
+        \ifdim\pgf@xa=\pgf@x \pgf@x=0.4cm \fi
+    }
+    \saveddimen\quartheight{
+        \pgf@xa=0cm
+        \pgfmathsetlength\pgf@x{\pgfkeysvalueof{/tikz/block height}/4}
+        \ifdim\pgf@xa=\pgf@x \pgf@x=0.2cm \fi
+    }
+
+    \anchor{portA}{\pgfqpoint{-\halfwidth}{\quartheight}}
+    \anchor{portB}{\pgfqpoint{-\halfwidth}{-\quartheight}}
+    \anchor{portC}{\pgfqpoint{\halfwidth}{0cm}}
+    \backgroundpath{
+        \setlength{\pgf@xa}{\widthof{+}}
+        \pgfmathsetlength{\pgf@xb}{\halfwidth-0.7\pgf@xa}
+        \pgftext[x=-\pgf@xb,y=\quartheight]{\small +}
+        \pgftext[x=-\pgf@xb,y=-\quartheight]{\small +}
+        \pgfpathmoveto{\pgfqpoint{\halfwidth}{\halfheight}}
+        \pgfpathlineto{\pgfqpoint{\halfwidth}{-\halfheight}}
+        \pgfpathlineto{\pgfqpoint{-\halfwidth}{-\halfheight}}
+        \pgfpathlineto{\pgfqpoint{-\halfwidth}{\halfheight}}
+        \pgfpathlineto{\pgfqpoint{\halfwidth}{\halfheight}}
+    }
+}
+
+% [ Output Block : <Outport> ]
+% http://www.mathworks.com/help/simulink/slref/outport.html
+\pgfdeclareshape{skOutport}
+{
+    \inheritsavedanchors[from=skInport]
+    \inheritanchorborder[from=skInport]
+    \inheritbackgroundpath[from=skInport]
+    \inheritanchor[from=skInport]{center}
+    \anchor{portA}{\pgfqpoint{-\halfwidth}{0cm}}
+}
+
+%%%%%%%%%%%%%%%%%% Simulink Anchors Definitions %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pgfdeclareshape{skWireAnchor}
+{
+    \savedanchor{\center}{\pgfpointorigin}
+    \anchor{center}{\center}
+    \anchor{east}{\pgfqpoint{0.05cm}{0cm}}
+    \anchor{west}{\pgfqpoint{-0.05cm}{0cm}}
+    % There is no anchor for north or south.
+    % ToDo : Another anchor might be defined to connect block through north or
+    %        south TikZ anchors.
+    \backgroundpath{
+        \pgfpathmoveto{\pgfqpoint{-0.05cm}{-0.05cm}}
+        \pgfpathlineto{\pgfqpoint{0.05cm}{0cm}}
+        \pgfpathlineto{\pgfqpoint{-0.05cm}{0.05cm}}
+    }
+}
+\makeatother
+
+%%%%%%%%%% Commands to quickly include Simulink blocks into plain text %%%%%%%%
+\newcommand{\skBlock}[1]{
+    \begin{tikzpicture}
+        \node[#1,draw] at (0,0) {};
+    \end{tikzpicture
+}
+
+\newcommand{\skBlockO}[2]{
+    \begin{tikzpicture}
+        \node[#1,draw] (a) at (0,0) {};
+        \node[skWireAnchor,draw,right=0cm of a.portA] (b) {};
+        \node[right=0cm of b] (c) {#2};
+    \end{tikzpicture}
+}
+
+\newcommand{\skBlockI}[2]{
+    \begin{tikzpicture}
+        \node[#1,draw] (a) at (0,0) {};
+        \node[skWireAnchor,draw,left=0cm of a.portA] (b) {};
+        \node[left=0cm of b] (c) {#2};
+    \end{tikzpicture}
+}
+
+\newcommand{\skBlockIO}[3]{
+    \begin{tikzpicture}
+        \node[#1,draw] (a) at (0,0) {};
+        \node[skWireAnchor,draw,left=0cm of a.portA] (b) {};
+        \node[left=0cm of b] (c) {#2};
+        \node[skWireAnchor,draw,right=0cm of a.portB] (d) {};
+        \node[right=0cm of d] (e) {#3};
+    \end{tikzpicture}
+}
+
+\newcommand{\skBlockIIO}[4]{
+    \begin{tikzpicture}
+        \node[#1,draw] (a) at (0,0) {};
+        \node[skWireAnchor,draw,left=0cm of a.portA] (b) {};
+        \node[left=0cm of b] (c) {#2};
+        \node[skWireAnchor,draw,left=0cm of a.portB] (d) {};
+        \node[left=0cm of d] (e) {#3};
+        \node[skWireAnchor,draw,right=0cm of a.portC] (f) {};
+        \node[right=0cm of f] (g) {#4};
+    \end{tikzpicture}
+}
