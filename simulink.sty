@@ -219,6 +219,66 @@
 
 }
 
+% [ Block : <Transport Delay> ]
+% https://fr.mathworks.com/help/simulink/slref/transportdelay.html
+\pgfdeclareshape{skTransportDelay}
+{
+    \savedanchor{\center}{\pgfpointorigin}
+    \anchor{center}{\center}
+
+    \saveddimen\halfwidth{
+        \pgf@xa=0cm
+        \pgfmathsetlength\pgf@x{\pgfkeysvalueof{/tikz/block width}/2}
+        \ifdim\pgf@xa=\pgf@x \pgf@x=0.4cm \fi
+    }
+    \saveddimen\halfheight{
+        \pgf@xa=0cm
+        \pgfmathsetlength\pgf@x{\pgfkeysvalueof{/tikz/block height}/2}
+        \ifdim\pgf@xa=\pgf@x \pgf@x=0.4cm \fi
+    }
+
+    \saveddimen\plotorigin{
+        \pgf@xa=0cm
+        \pgfmathsetlength\pgf@x{\pgfkeysvalueof{/tikz/block height}*3/8}
+        \ifdim\pgf@xa=\pgf@x \pgf@x=0.3cm \fi
+    }
+
+    \saveddimen\halfplotorigin{
+        \pgf@xa=0cm
+        \pgfmathsetlength\pgf@x{\pgfkeysvalueof{/tikz/block height}*3/16}
+        \ifdim\pgf@xa=\pgf@x \pgf@x=0.15cm \fi
+    }
+
+    \anchor{portA}{\pgfqpoint{-\halfwidth}{0cm}}
+    \anchor{portB}{\pgfqpoint{\halfwidth}{0cm}}
+    \backgroundpath{
+        % First, draw the square :
+        \pgfpathmoveto{\pgfqpoint{\halfwidth}{\halfheight}}
+        \pgfpathlineto{\pgfqpoint{\halfwidth}{-\halfheight}}
+        \pgfpathlineto{\pgfqpoint{-\halfwidth}{-\halfheight}}
+        \pgfpathlineto{\pgfqpoint{-\halfwidth}{\halfheight}}
+        \pgfpathlineto{\pgfqpoint{\halfwidth}{\halfheight}}
+        \pgfusepath{stroke}
+        \color{black}
+        % Original Signal :
+        \draw (-\plotorigin,0cm) sin (-\halfplotorigin,\plotorigin);
+        \draw (-\halfplotorigin,\plotorigin) cos (0cm,0cm);
+        \draw (0cm,0cm) sin (\halfplotorigin,-\plotorigin);
+        \draw (\halfplotorigin,-\plotorigin) cos (\plotorigin,0cm);
+        % Modified signal :
+        \draw (-\plotorigin,0cm) -- (-\halfplotorigin,0cm);
+        \draw (-\halfplotorigin,0cm) sin (0cm,\plotorigin);
+        \draw (0cm,\plotorigin) cos (\halfplotorigin,0cm);
+        \draw (\halfplotorigin,0cm) sin (\plotorigin,-\plotorigin);
+        % Arrows :
+        \newdimen\spo \pgfmathsetlength\spo{\plotorigin/6}
+        \newdimen\sposin \pgfmathsetlength\sposin{\plotorigin*1/2}
+        \draw[->] (-\spo,\sposin) -- (2*\spo,\sposin);
+        \draw[->] (\spo,-\sposin) -- (4*\spo,-\sposin);
+    }
+
+}
+
 % [ Arithmetic Block : <Binary Addition> ]
 % http://www.mathworks.com/help/simulink/slref/add.html
 %
