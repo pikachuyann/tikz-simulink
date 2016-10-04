@@ -43,6 +43,8 @@
 \tikzset{block height/.initial=0cm}     % of Simulink blocks.
 \tikzset{cstval/.initial=1}             % This key is used to set the initial
                                         % value of a Constant block.
+\tikzset{delayval/.initial=1}           % This key is used to set the "delay
+                                        % length" value of a Delay block.
 
 %%%%%%%%%%%%%%%%%%%%%% Simulink Block definitions %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % [ Source Block : <Inport> ]
@@ -210,6 +212,39 @@
     \anchor{portB}{\pgfqpoint{\halfwidth}{0cm}}
     \backgroundpath{
         \pgftext{$\frac{1}{\mathrm{z}}$}
+        \pgfpathmoveto{\pgfqpoint{\halfwidth}{\halfheight}}
+        \pgfpathlineto{\pgfqpoint{\halfwidth}{-\halfheight}}
+        \pgfpathlineto{\pgfqpoint{-\halfwidth}{-\halfheight}}
+        \pgfpathlineto{\pgfqpoint{-\halfwidth}{\halfheight}}
+        \pgfpathlineto{\pgfqpoint{\halfwidth}{\halfheight}}
+    }
+
+}
+
+% [ Block : <Delay> ]
+% http://www.mathworks.com/help/simulink/slref/delay.html
+\pgfdeclareshape{skDelay}
+{
+    \savedanchor{\center}{\pgfpointorigin}
+    \anchor{center}{\center}
+
+    % Size management
+    \saveddimen\halfwidth{
+        \pgf@xa=0cm
+        \pgfmathsetlength\pgf@x{\pgfkeysvalueof{/tikz/block width}/2}
+        \ifdim\pgf@xa=\pgf@x \pgf@x=0.4cm \fi
+    }
+    \saveddimen\halfheight{
+        \pgf@xa=0cm
+        \pgfmathsetlength\pgf@x{\pgfkeysvalueof{/tikz/block height}/2}
+        \ifdim\pgf@xa=\pgf@x \pgf@x=0.4cm \fi
+    }
+
+    \anchor{portA}{\pgfqpoint{-\halfwidth}{0cm}}
+    \anchor{portB}{\pgfqpoint{\halfwidth}{0cm}}
+    \backgroundpath{
+        \pgfkeysgetvalue{/tikz/delayval}{\delayval}
+        \pgftext{\footnotesize z\textsuperscript{-\delayval}}
         \pgfpathmoveto{\pgfqpoint{\halfwidth}{\halfheight}}
         \pgfpathlineto{\pgfqpoint{\halfwidth}{-\halfheight}}
         \pgfpathlineto{\pgfqpoint{-\halfwidth}{-\halfheight}}
