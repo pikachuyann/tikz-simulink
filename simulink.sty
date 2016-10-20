@@ -45,6 +45,10 @@
                                         % value of a Constant block.
 \tikzset{delayval/.initial=1}           % This key is used to set the "delay
                                         % length" value of a Delay block.
+\tikzset{switchtype/.initial=$>$}       % This key is used to set the type of
+                                        % switch used.
+\tikzset{switchval/.initial=0}          % This key is used to set the default
+                                        % value of comparison in a Switch block
 
 %%%%%%%%%%%%%%%%%%%%%% Simulink Block definitions %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % [ Source Block : <Inport> ]
@@ -359,6 +363,68 @@
     }
 }
 
+% [ Block : <Switch> ]
+% http://www.mathworks.com/help/matlab/ref/switch.html
+\pgfdeclareshape{skSwitch}
+{
+    \savedanchor{\center}{\pgfpointorigin}
+    \anchor{center}{\center}
+
+    \saveddimen\halfwidth{
+        \pgf@xa=0cm
+        \pgfmathsetlength\pgf@x{\pgfkeysvalueof{/tikz/block width}/2}
+        \ifdim\pgf@xa=\pgf@x \pgf@x=0.4cm \fi
+    }
+    \saveddimen\halfheight{
+        \pgf@xa=0cm
+        \pgfmathsetlength\pgf@x{\pgfkeysvalueof{/tikz/block height}/2}
+        \ifdim\pgf@xa=\pgf@x \pgf@x=0.6cm \fi
+    }
+    \saveddimen\posientree{
+        \pgf@xa=0cm
+        \pgfmathsetlength\pgf@x{\pgfkeysvalueof{/tikz/block height}/3}
+        \ifdim\pgf@xa=\pgf@x \pgf@x=0.4cm \fi
+    }
+
+    \anchor{portA}{\pgfqpoint{-\halfwidth}{0cm}}
+    \anchor{portB}{\pgfqpoint{-\halfwidth}{\posientree}}
+    \anchor{portC}{\pgfqpoint{-\halfwidth}{-\posientree}}
+    \anchor{portD}{\pgfqpoint{\halfwidth}{0cm}}
+
+    \backgroundpath{
+        \pgfpathmoveto{\pgfqpoint{\halfwidth}{\halfheight}}
+        \pgfpathlineto{\pgfqpoint{\halfwidth}{-\halfheight}}
+        \pgfpathlineto{\pgfqpoint{-\halfwidth}{-\halfheight}}
+        \pgfpathlineto{\pgfqpoint{-\halfwidth}{\halfheight}}
+        \pgfpathlineto{\pgfqpoint{\halfwidth}{\halfheight}}
+        \setlength{\pgf@xa}{\halfwidth*2/3}
+        \setlength{\pgf@xb}{\halfwidth/6}
+        % Draw the input given if condition=true :
+        \pgfpathmoveto{\pgfqpoint{-\halfwidth}{\posientree}}
+        \pgfpathlineto{\pgfqpoint{-\pgf@xa}{\posientree}}
+        \pgfpatharc{180}{540}{\pgf@xb}
+        % Draw the input given if condition=false :
+        \pgfpathmoveto{\pgfqpoint{-\halfwidth}{-\posientree}}
+        \pgfpathlineto{\pgfqpoint{-\pgf@xa}{-\posientree}}
+        \pgfpatharc{180}{540}{\pgf@xb}
+        % Draw the input on which condition applies
+        \pgfpathmoveto{\pgfqpoint{-\halfwidth}{0cm}}
+        \pgfpathlineto{\pgfqpoint{-\pgf@xa}{0cm}}
+        \pgfpathmoveto{\pgfqpoint{-\pgf@xa}{-\pgf@xb}}
+        \pgfpathlineto{\pgfqpoint{-\pgf@xa}{\pgf@xb}}
+        % Draw the output :
+        \pgfpathmoveto{\pgfqpoint{\halfwidth}{0cm}}
+        \pgfpathlineto{\pgfqpoint{\pgf@xa}{0cm}}
+        \pgfpatharc{0}{360}{\pgf@xb}
+        % Draw condition :
+        \pgfkeysgetvalue{/tikz/switchtype}{\switchtype}
+        \pgfkeysgetvalue{/tikz/switchval}{\switchval}
+        \setlength{\pgf@xc}{\halfwidth*3/12}
+        \pgftext[x=-\pgf@xc,y=0cm]{\tiny \switchtype \switchval}
+    }
+}
+
+
 % [ Output Block : <Outport> ]
 % http://www.mathworks.com/help/simulink/slref/outport.html
 \pgfdeclareshape{skOutport}
@@ -430,5 +496,19 @@
         \node[left=0cm of d] (e) {#3};
         \node[skWireAnchor,draw,right=0cm of a.portC] (f) {};
         \node[right=0cm of f] (g) {#4};
+    \end{tikzpicture}
+}
+
+\newcommand{\skBlockIIIO}[5]{
+    \begin{tikzpicture}
+        \node[#1,draw] (a) at (0,0) {};
+        \node[skWireAnchor,draw,left=0cm of a.portA] (b) {};
+        \node[left=0cm of b] (c) {#2};
+        \node[skWireAnchor,draw,left=0cm of a.portB] (d) {};
+        \node[left=0cm of d] (e) {#3};
+        \node[skWireAnchor,draw,left=0cm of a.portC] (f) {};
+        \node[left=0cm of f] (g) {#4};
+        \node[skWireAnchor,draw,right=0cm of a.portD] (h) {};
+        \node[right=0cm of h] (i) {#5};
     \end{tikzpicture}
 }
