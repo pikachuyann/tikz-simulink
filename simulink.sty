@@ -318,6 +318,38 @@
 
 }
 
+% [ Block : <Integrator> ]
+% http://www.mathworks.com/help/simulink/slref/unitdelay.html
+\pgfdeclareshape{skIntegrator}
+{
+    \savedanchor{\center}{\pgfpointorigin}
+    \anchor{center}{\center}
+
+    % Size management
+    \saveddimen\halfwidth{
+        \pgf@xa=0cm
+        \pgfmathsetlength\pgf@x{\pgfkeysvalueof{/tikz/block width}/2}
+        \ifdim\pgf@xa=\pgf@x \pgf@x=0.4cm \fi
+    }
+    \saveddimen\halfheight{
+        \pgf@xa=0cm
+        \pgfmathsetlength\pgf@x{\pgfkeysvalueof{/tikz/block height}/2}
+        \ifdim\pgf@xa=\pgf@x \pgf@x=0.4cm \fi
+    }
+
+    \anchor{portA}{\pgfqpoint{-\halfwidth}{0cm}}
+    \anchor{portB}{\pgfqpoint{\halfwidth}{0cm}}
+    \backgroundpath{
+        \pgftext{$\frac{1}{\mathrm{s}}$}
+        \pgfpathmoveto{\pgfqpoint{\halfwidth}{\halfheight}}
+        \pgfpathlineto{\pgfqpoint{\halfwidth}{-\halfheight}}
+        \pgfpathlineto{\pgfqpoint{-\halfwidth}{-\halfheight}}
+        \pgfpathlineto{\pgfqpoint{-\halfwidth}{\halfheight}}
+        \pgfpathlineto{\pgfqpoint{\halfwidth}{\halfheight}}
+    }
+
+}
+
 % [ Block : <Relay> ]
 % https://fr.mathworks.com/help/simulink/slref/relay.html
 \pgfdeclareshape{skRelay}
