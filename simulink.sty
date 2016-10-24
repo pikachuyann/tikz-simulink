@@ -318,6 +318,60 @@
 
 }
 
+% [ Block : <Relay> ]
+% https://fr.mathworks.com/help/simulink/slref/relay.html
+\pgfdeclareshape{skRelay}
+{
+    \savedanchor{\center}{\pgfpointorigin}
+    \anchor{center}{\center}
+
+    \saveddimen\halfwidth{
+        \pgf@xa=0cm
+        \pgfmathsetlength\pgf@x{\pgfkeysvalueof{/tikz/block width}/2}
+        \ifdim\pgf@xa=\pgf@x \pgf@x=0.4cm \fi
+    }
+    \saveddimen\halfheight{
+        \pgf@xa=0cm
+        \pgfmathsetlength\pgf@x{\pgfkeysvalueof{/tikz/block height}/2}
+        \ifdim\pgf@xa=\pgf@x \pgf@x=0.4cm \fi
+    }
+
+    \saveddimen\plotmax{
+        \pgf@xa=0cm
+        \pgfmathsetlength\pgf@x{\pgfkeysvalueof{/tikz/block height}*3/8}
+        \ifdim\pgf@xa=\pgf@x \pgf@x=0.3cm \fi
+    }
+
+    \anchor{portA}{\pgfqpoint{-\halfwidth}{0cm}}
+    \anchor{portB}{\pgfqpoint{\halfwidth}{0cm}}
+    \backgroundpath{
+        % First, draw the square :
+        \pgfpathmoveto{\pgfqpoint{\halfwidth}{\halfheight}}
+        \pgfpathlineto{\pgfqpoint{\halfwidth}{-\halfheight}}
+        \pgfpathlineto{\pgfqpoint{-\halfwidth}{-\halfheight}}
+        \pgfpathlineto{\pgfqpoint{-\halfwidth}{\halfheight}}
+        \pgfpathlineto{\pgfqpoint{\halfwidth}{\halfheight}}
+        \pgfusepath{stroke}
+        % Second, draw the plot inside the block :
+        \pgfsetstrokecolor{gray}
+        \pgfpathmoveto{\pgfqpoint{-\plotmax}{0cm}}
+        \pgfpathlineto{\pgfqpoint{\plotmax}{0cm}}
+        \pgfpathmoveto{\pgfqpoint{0cm}{-\plotmax}}
+        \pgfpathlineto{\pgfqpoint{0cm}{\plotmax}}
+        \pgfusepath{stroke}
+        \color{black}
+        \newdimen\mxh \pgfmathsetlength\mxh{\plotmax*5/8}
+        \newdimen\sth \pgfmathsetlength\sth{\plotmax*1/3}
+        \pgfpathmoveto{\pgfqpoint{-\sth}{-\mxh}}
+        \pgfpathlineto{\pgfqpoint{-\sth}{\mxh}}
+        \pgfpathlineto{\pgfqpoint{\plotmax}{\mxh}}
+        \pgfpathmoveto{\pgfqpoint{\sth}{\mxh}}
+        \pgfpathlineto{\pgfqpoint{\sth}{-\mxh}}
+        \pgfpathlineto{\pgfqpoint{-\plotmax}{-\mxh}}
+    }
+}
+
+
 % [ Arithmetic Block : <Binary Addition> ]
 % http://www.mathworks.com/help/simulink/slref/add.html
 %
