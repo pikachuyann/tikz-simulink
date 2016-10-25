@@ -43,6 +43,8 @@
 \tikzset{block height/.initial=0cm}     % of Simulink blocks.
 \tikzset{cstval/.initial=1}             % This key is used to set the initial
                                         % value of a Constant block.
+\tikzset{gainval/.initial=1}            % This key is used to set the initial
+                                        % value of a Gain block.
 \tikzset{delayval/.initial=1}           % This key is used to set the "delay
                                         % length" value of a Delay block.
 \tikzset{switchtype/.initial=$>$}       % This key is used to set the type of
@@ -256,6 +258,38 @@
         \pgfpathlineto{\pgfqpoint{\halfwidth}{\halfheight}}
     }
 
+}
+
+% [ Block : <Gain> ]
+\tikzset{gainval/.initial=1}
+\pgfdeclareshape{skGain}
+{
+    \savedanchor{\center}{\pgfpointorigin}
+    \anchor{center}{\center}
+
+    % Size management
+    \saveddimen\halfwidth{
+        \pgf@xa=0cm
+        \pgfmathsetlength\pgf@x{\pgfkeysvalueof{/tikz/block width}/2}
+        \ifdim\pgf@xa=\pgf@x \pgf@x=0.4cm \fi
+    }
+    \saveddimen\halfheight{
+        \pgf@xa=0cm
+        \pgfmathsetlength\pgf@x{\pgfkeysvalueof{/tikz/block height}/2}
+        \ifdim\pgf@xa=\pgf@x \pgf@x=0.4cm \fi
+    }
+
+    \anchor{portA}{\pgfqpoint{-\halfwidth}{0cm}}
+	\anchor{portB}{\pgfqpoint{\halfwidth}{0cm}}
+    \backgroundpath{
+	    \newdimen\txtpo \pgfmathsetlength\txtpo{\halfwidth/3}
+        \pgfkeysgetvalue{/tikz/gainval}{\gainval}
+        \pgftext[x=-\txtpo,y=0cm]{\gainval}
+        \pgfpathmoveto{\pgfqpoint{-\halfwidth}{\halfheight}}
+        \pgfpathlineto{\pgfqpoint{-\halfwidth}{-\halfheight}}
+        \pgfpathlineto{\pgfqpoint{\halfwidth}{0cm}}
+        \pgfpathlineto{\pgfqpoint{-\halfwidth}{\halfheight}}
+    }
 }
 
 % [ Block : <Transport Delay> ]
