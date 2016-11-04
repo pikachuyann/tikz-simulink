@@ -583,6 +583,7 @@
 
 \newcommand{\skBlockO}[2]{
     \begin{tikzpicture}
+        \node[] (disp) at (0,0.35cm) {};
         \node[#1,draw] (a) at (0,0) {};
         \node[skWireAnchor,draw,right=0cm of a.portA] (b) {};
         \node[right=0cm of b] (c) {#2};
@@ -591,6 +592,7 @@
 
 \newcommand{\skBlockI}[2]{
     \begin{tikzpicture}
+        \node[] (disp) at (0,0.35cm) {};
         \node[#1,draw] (a) at (0,0) {};
         \node[skWireAnchor,draw,left=0cm of a.portA] (b) {};
         \node[left=0cm of b] (c) {#2};
@@ -599,6 +601,7 @@
 
 \newcommand{\skBlockIO}[3]{
     \begin{tikzpicture}
+        \node[] (disp) at (0,0.35cm) {};
         \node[#1,draw] (a) at (0,0) {};
         \node[skWireAnchor,draw,left=0cm of a.portA] (b) {};
         \node[left=0cm of b] (c) {#2};
@@ -609,6 +612,7 @@
 
 \newcommand{\skBlockIIO}[4]{
     \begin{tikzpicture}
+        \node[] (disp) at (0,0.35cm) {};
         \node[#1,draw] (a) at (0,0) {};
         \node[skWireAnchor,draw,left=0cm of a.portA] (b) {};
         \node[left=0cm of b] (c) {#2};
@@ -621,6 +625,7 @@
 
 \newcommand{\skBlockIIIO}[5]{
     \begin{tikzpicture}
+        \node[] (disp) at (0,0.55cm) {};
         \node[#1,draw] (a) at (0,0) {};
         \node[skWireAnchor,draw,left=0cm of a.portA] (b) {};
         \node[left=0cm of b] (c) {#2};
