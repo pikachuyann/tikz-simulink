@@ -23,7 +23,7 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%% Package Identification %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \NeedsTeXFormat{LaTeX2e}[1994/06/01]
-\ProvidesPackage{simulink}[2016/10/03 v0.02 Simulink Shapes for TikZ]
+\ProvidesPackage{simulink}[2016/11/09 v0.03a Simulink Shapes for TikZ]
 
 %%%%%%%%%%%%%%%%%%%%%%%% Package Requirements %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % As this is a TikZ package, we should verify that the document actually have
@@ -555,6 +555,53 @@
     \inheritanchor[from=skInport]{center}
     \anchor{portA}{\pgfqpoint{-\halfwidth}{0cm}}
 }
+
+% [ Output Block : <Scope> ]
+\pgfdeclareshape{skScope}
+{
+    \savedanchor{\center}{\pgfpointorigin}
+    \anchor{center}{\center}
+
+    \saveddimen\halfwidth{
+        \pgf@xa=0cm
+        \pgfmathsetlength\pgf@x{\pgfkeysvalueof{/tikz/block width}/2}
+        \ifdim\pgf@xa=\pgf@x \pgf@x=0.4cm \fi
+    }
+    \saveddimen\halfheight{
+        \pgf@xa=0cm
+        \pgfmathsetlength\pgf@x{\pgfkeysvalueof{/tikz/block height}/2}
+        \ifdim\pgf@xa=\pgf@x \pgf@x=0.4cm \fi
+    }
+
+    \saveddimen\plotorigin{
+        \pgf@xa=0cm
+        \pgfmathsetlength\pgf@x{\pgfkeysvalueof{/tikz/block height}*3/8}
+        \ifdim\pgf@xa=\pgf@x \pgf@x=0.3cm \fi
+    }
+
+    \saveddimen\otherplotorigin{
+        \pgf@xa=0cm
+        \pgfmathsetlength\pgf@x{\pgfkeysvalueof{/tikz/block width}*3/8}
+        \ifdim\pgf@xa=\pgf@x \pgf@x=0.3cm \fi
+    }
+
+    \anchor{portA}{\pgfqpoint{-\halfwidth}{0cm}}
+    \backgroundpath{
+        % First, draw the outside square :
+        \pgfpathmoveto{\pgfqpoint{\halfwidth}{\halfheight}}
+        \pgfpathlineto{\pgfqpoint{\halfwidth}{-\halfheight}}
+        \pgfpathlineto{\pgfqpoint{-\halfwidth}{-\halfheight}}
+        \pgfpathlineto{\pgfqpoint{-\halfwidth}{\halfheight}}
+        \pgfpathlineto{\pgfqpoint{\halfwidth}{\halfheight}}
+        % Now, draw the inner "display" square :
+        \pgfpathmoveto{\pgfqpoint{-\otherplotorigin}{\plotorigin}}
+        \pgfpathlineto{\pgfqpoint{\otherplotorigin}{\plotorigin}}
+        \pgfpathlineto{\pgfqpoint{\otherplotorigin}{0cm}}
+        \pgfpathlineto{\pgfqpoint{-\otherplotorigin}{0cm}}
+        \pgfpathlineto{\pgfqpoint{-\otherplotorigin}{\plotorigin}}
+    }
+}
+
 
 %%%%%%%%%%%%%%%%%% Simulink Anchors Definitions %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \pgfdeclareshape{skWireAnchor}
