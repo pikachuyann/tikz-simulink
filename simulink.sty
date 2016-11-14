@@ -23,7 +23,7 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%% Package Identification %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \NeedsTeXFormat{LaTeX2e}[1994/06/01]
-\ProvidesPackage{simulink}[2016/11/09 v0.03a Simulink Shapes for TikZ]
+\ProvidesPackage{simulink}[2016/11/14 v0.03b Simulink Shapes for TikZ]
 
 %%%%%%%%%%%%%%%%%%%%%%%% Package Requirements %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % As this is a TikZ package, we should verify that the document actually have
@@ -128,6 +128,16 @@
     }
 
     \anchor{portA}{\pgfqpoint{\halfwidth}{0cm}}
+    \anchorborder{
+        \pgf@xa=\pgf@x%
+        \pgf@ya=\pgf@y%
+        \pgf@xb=0cm%
+        \center%
+        \pgfmathsetlength\pgf@xc{\pgf@xa*\pgf@xa+\pgf@ya*\pgf@ya}
+        \pgfmathsetlength\pgf@xa{\pgf@xa/\pgf@xc*\halfwidth}
+        \pgfmathsetlength\pgf@ya{\pgf@ya/\pgf@xc*\halfheight}
+        \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}%
+    }
     \backgroundpath{
         \pgfkeysgetvalue{/tikz/cstval}{\cstval}
         \pgftext{\cstval}
@@ -171,6 +181,16 @@
 
 
     \anchor{portA}{\pgfqpoint{\halfwidth}{0cm}}
+    \anchorborder{
+        \pgf@xa=\pgf@x%
+        \pgf@ya=\pgf@y%
+        \pgf@xb=0cm%
+        \center%
+        \pgfmathsetlength\pgf@xc{\pgf@xa*\pgf@xa+\pgf@ya*\pgf@ya}
+        \pgfmathsetlength\pgf@xa{\pgf@xa/\pgf@xc*\halfwidth}
+        \pgfmathsetlength\pgf@ya{\pgf@ya/\pgf@xc*\halfheight}
+        \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}%
+    }
     \backgroundpath{
         % First, draw the square :
         \pgfpathmoveto{\pgfqpoint{\halfwidth}{\halfheight}}
@@ -216,6 +236,16 @@
 
     \anchor{portA}{\pgfqpoint{-\halfwidth}{0cm}}
     \anchor{portB}{\pgfqpoint{\halfwidth}{0cm}}
+    \anchorborder{
+        \pgf@xa=\pgf@x%
+        \pgf@ya=\pgf@y%
+        \pgf@xb=0cm%
+        \center%
+        \pgfmathsetlength\pgf@xc{\pgf@xa*\pgf@xa+\pgf@ya*\pgf@ya}
+        \pgfmathsetlength\pgf@xa{\pgf@xa/\pgf@xc*\halfwidth}
+        \pgfmathsetlength\pgf@ya{\pgf@ya/\pgf@xc*\halfheight}
+        \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}%
+    }
     \backgroundpath{
         \pgftext{$\frac{1}{\mathrm{z}}$}
         \pgfpathmoveto{\pgfqpoint{\halfwidth}{\halfheight}}
@@ -248,6 +278,16 @@
 
     \anchor{portA}{\pgfqpoint{-\halfwidth}{0cm}}
     \anchor{portB}{\pgfqpoint{\halfwidth}{0cm}}
+    \anchorborder{
+        \pgf@xa=\pgf@x%
+        \pgf@ya=\pgf@y%
+        \pgf@xb=0cm%
+        \center%
+        \pgfmathsetlength\pgf@xc{\pgf@xa*\pgf@xa+\pgf@ya*\pgf@ya}
+        \pgfmathsetlength\pgf@xa{\pgf@xa/\pgf@xc*\halfwidth}
+        \pgfmathsetlength\pgf@ya{\pgf@ya/\pgf@xc*\halfheight}
+        \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}%
+    }
     \backgroundpath{
         \pgfkeysgetvalue{/tikz/delayval}{\delayval}
         \pgftext{\footnotesize z\textsuperscript{-\delayval}}
@@ -280,9 +320,19 @@
     }
 
     \anchor{portA}{\pgfqpoint{-\halfwidth}{0cm}}
-	\anchor{portB}{\pgfqpoint{\halfwidth}{0cm}}
+    \anchor{portB}{\pgfqpoint{\halfwidth}{0cm}}
+    \anchorborder{
+        \pgf@xa=\pgf@x%
+        \pgf@ya=\pgf@y%
+        \pgf@xb=0cm%
+        \center%
+        \pgfmathsetlength\pgf@xc{\pgf@xa*\pgf@xa+\pgf@ya*\pgf@ya}
+        \pgfmathsetlength\pgf@xa{\pgf@xa/\pgf@xc*\halfwidth}
+        \pgfmathsetlength\pgf@ya{\pgf@ya/\pgf@xc*\halfheight}
+        \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}%
+    }
     \backgroundpath{
-	    \newdimen\txtpo \pgfmathsetlength\txtpo{\halfwidth/3}
+        \newdimen\txtpo \pgfmathsetlength\txtpo{\halfwidth/3}
         \pgfkeysgetvalue{/tikz/gainval}{\gainval}
         \pgftext[x=-\txtpo,y=0cm]{\gainval}
         \pgfpathmoveto{\pgfqpoint{-\halfwidth}{\halfheight}}
@@ -324,6 +374,16 @@
 
     \anchor{portA}{\pgfqpoint{-\halfwidth}{0cm}}
     \anchor{portB}{\pgfqpoint{\halfwidth}{0cm}}
+    \anchorborder{
+        \pgf@xa=\pgf@x%
+        \pgf@ya=\pgf@y%
+        \pgf@xb=0cm%
+        \center%
+        \pgfmathsetlength\pgf@xc{\pgf@xa*\pgf@xa+\pgf@ya*\pgf@ya}
+        \pgfmathsetlength\pgf@xa{\pgf@xa/\pgf@xc*\halfwidth}
+        \pgfmathsetlength\pgf@ya{\pgf@ya/\pgf@xc*\halfheight}
+        \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}%
+    }
     \backgroundpath{
         % First, draw the square :
         \pgfpathmoveto{\pgfqpoint{\halfwidth}{\halfheight}}
@@ -373,6 +433,16 @@
 
     \anchor{portA}{\pgfqpoint{-\halfwidth}{0cm}}
     \anchor{portB}{\pgfqpoint{\halfwidth}{0cm}}
+    \anchorborder{
+        \pgf@xa=\pgf@x%
+        \pgf@ya=\pgf@y%
+        \pgf@xb=0cm%
+        \center%
+        \pgfmathsetlength\pgf@xc{\pgf@xa*\pgf@xa+\pgf@ya*\pgf@ya}
+        \pgfmathsetlength\pgf@xa{\pgf@xa/\pgf@xc*\halfwidth}
+        \pgfmathsetlength\pgf@ya{\pgf@ya/\pgf@xc*\halfheight}
+        \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}%
+    }
     \backgroundpath{
         \pgftext{$\frac{1}{\mathrm{s}}$}
         \pgfpathmoveto{\pgfqpoint{\halfwidth}{\halfheight}}
@@ -410,6 +480,16 @@
 
     \anchor{portA}{\pgfqpoint{-\halfwidth}{0cm}}
     \anchor{portB}{\pgfqpoint{\halfwidth}{0cm}}
+    \anchorborder{
+        \pgf@xa=\pgf@x%
+        \pgf@ya=\pgf@y%
+        \pgf@xb=0cm%
+        \center%
+        \pgfmathsetlength\pgf@xc{\pgf@xa*\pgf@xa+\pgf@ya*\pgf@ya}
+        \pgfmathsetlength\pgf@xa{\pgf@xa/\pgf@xc*\halfwidth}
+        \pgfmathsetlength\pgf@ya{\pgf@ya/\pgf@xc*\halfheight}
+        \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}%
+    }
     \backgroundpath{
         % First, draw the square :
         \pgfpathmoveto{\pgfqpoint{\halfwidth}{\halfheight}}
@@ -470,6 +550,16 @@
     \anchor{portA}{\pgfqpoint{-\halfwidth}{\quartheight}}
     \anchor{portB}{\pgfqpoint{-\halfwidth}{-\quartheight}}
     \anchor{portC}{\pgfqpoint{\halfwidth}{0cm}}
+    \anchorborder{
+        \pgf@xa=\pgf@x%
+        \pgf@ya=\pgf@y%
+        \pgf@xb=0cm%
+        \center%
+        \pgfmathsetlength\pgf@xc{\pgf@xa*\pgf@xa+\pgf@ya*\pgf@ya}
+        \pgfmathsetlength\pgf@xa{\pgf@xa/\pgf@xc*\halfwidth}
+        \pgfmathsetlength\pgf@ya{\pgf@ya/\pgf@xc*\halfheight}
+        \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}%
+    }
     \backgroundpath{
         \setlength{\pgf@xa}{\widthof{+}}
         \pgfmathsetlength{\pgf@xb}{\halfwidth-0.7\pgf@xa}
@@ -510,6 +600,16 @@
     \anchor{portB}{\pgfqpoint{-\halfwidth}{0cm}}
     \anchor{portC}{\pgfqpoint{-\halfwidth}{-\posientree}}
     \anchor{portD}{\pgfqpoint{\halfwidth}{0cm}}
+    \anchorborder{
+        \pgf@xa=\pgf@x%
+        \pgf@ya=\pgf@y%
+        \pgf@xb=0cm%
+        \center%
+        \pgfmathsetlength\pgf@xc{\pgf@xa*\pgf@xa+\pgf@ya*\pgf@ya}
+        \pgfmathsetlength\pgf@xa{\pgf@xa/\pgf@xc*\halfwidth}
+        \pgfmathsetlength\pgf@ya{\pgf@ya/\pgf@xc*\halfheight}
+        \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}%
+    }
 
     \backgroundpath{
         \pgfpathmoveto{\pgfqpoint{\halfwidth}{\halfheight}}
@@ -554,6 +654,16 @@
     \inheritbackgroundpath[from=skInport]
     \inheritanchor[from=skInport]{center}
     \anchor{portA}{\pgfqpoint{-\halfwidth}{0cm}}
+    \anchorborder{
+        \pgf@xa=\pgf@x%
+        \pgf@ya=\pgf@y%
+        \pgf@xb=0cm%
+        \center%
+        \pgfmathsetlength\pgf@xc{\pgf@xa*\pgf@xa+\pgf@ya*\pgf@ya}
+        \pgfmathsetlength\pgf@xa{\pgf@xa/\pgf@xc*\halfwidth}
+        \pgfmathsetlength\pgf@ya{\pgf@ya/\pgf@xc*\halfheight}
+        \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}%
+    }
 }
 
 % [ Output Block : <Scope> ]
@@ -586,6 +696,16 @@
     }
 
     \anchor{portA}{\pgfqpoint{-\halfwidth}{0cm}}
+    \anchorborder{
+        \pgf@xa=\pgf@x%
+        \pgf@ya=\pgf@y%
+        \pgf@xb=0cm%
+        \center%
+        \pgfmathsetlength\pgf@xc{\pgf@xa*\pgf@xa+\pgf@ya*\pgf@ya}
+        \pgfmathsetlength\pgf@xa{\pgf@xa/\pgf@xc*\halfwidth}
+        \pgfmathsetlength\pgf@ya{\pgf@ya/\pgf@xc*\halfheight}
+        \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}%
+    }
     \backgroundpath{
         % First, draw the outside square :
         \pgfpathmoveto{\pgfqpoint{\halfwidth}{\halfheight}}
