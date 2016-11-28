@@ -23,7 +23,7 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%% Package Identification %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \NeedsTeXFormat{LaTeX2e}[1994/06/01]
-\ProvidesPackage{simulink}[2016/11/14 v0.03b Simulink Shapes for TikZ]
+\ProvidesPackage{simulink}[2016/11/28 v0.03c Simulink Shapes for TikZ]
 
 %%%%%%%%%%%%%%%%%%%%%%%% Package Requirements %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % As this is a TikZ package, we should verify that the document actually have
@@ -298,6 +298,66 @@
         \pgfpathlineto{\pgfqpoint{\halfwidth}{\halfheight}}
     }
 
+}
+
+% [ Block : <Zero-Order Hold> ]
+% https://www.mathworks.com/help/simulink/slref/zeroorderhold.html
+\pgfdeclareshape{skZeroOrderHold}
+{
+    \savedanchor{\center}{\pgfpointorigin}
+    \anchor{center}{\center}
+
+    % Size management
+    \saveddimen\halfwidth{
+        \pgf@xa=0cm
+        \pgfmathsetlength\pgf@x{\pgfkeysvalueof{/tikz/block width}/2}
+        \ifdim\pgf@xa=\pgf@x \pgf@x=0.4cm \fi
+    }
+    \saveddimen\halfheight{
+        \pgf@xa=0cm
+        \pgfmathsetlength\pgf@x{\pgfkeysvalueof{/tikz/block height}/2}
+        \ifdim\pgf@xa=\pgf@x \pgf@x=0.4cm \fi
+    }
+
+    \anchor{portA}{\pgfqpoint{-\halfwidth}{0cm}}
+    \anchor{portB}{\pgfqpoint{\halfwidth}{0cm}}
+    \anchorborder{
+        \pgf@xa=\pgf@x%
+        \pgf@ya=\pgf@y%
+        \pgf@xb=0cm%
+        \center%
+        \pgfmathsetlength\pgf@xc{\pgf@xa*\pgf@xa+\pgf@ya*\pgf@ya}
+        \pgfmathsetlength\pgf@xa{\pgf@xa/\pgf@xc*\halfwidth}
+        \pgfmathsetlength\pgf@ya{\pgf@ya/\pgf@xc*\halfheight}
+        \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}%
+    }
+    \backgroundpath{
+		% Drawing the box of the Block :
+        \pgfpathmoveto{\pgfqpoint{\halfwidth}{\halfheight}}
+        \pgfpathlineto{\pgfqpoint{\halfwidth}{-\halfheight}}
+        \pgfpathlineto{\pgfqpoint{-\halfwidth}{-\halfheight}}
+        \pgfpathlineto{\pgfqpoint{-\halfwidth}{\halfheight}}
+        \pgfpathlineto{\pgfqpoint{\halfwidth}{\halfheight}}
+		% Setting dimensions for the Block icon
+		\newdimen\basedim \pgfmathsetlength\basedim{\halfwidth*3/4*2/4}
+		\newdimen\wA \pgfmathsetlength\wA{\halfwidth*3/4}
+		\newdimen\hA \pgfmathsetlength\hA{\halfheight*3/4}
+		\newdimen\wB \pgfmathsetlength\wB{\wA-\basedim}
+		\newdimen\wC \pgfmathsetlength\wC{\wB-\basedim}
+		\newdimen\hB \pgfmathsetlength\hB{\halfheight*1/16}
+		\newdimen\wD \pgfmathsetlength\wD{\wC-\basedim}
+		\newdimen\hC \pgfmathsetlength\hC{\halfheight*7/16}
+		\newdimen\wE \pgfmathsetlength\wE{\wD-\basedim}
+		% Drawing the Block icon
+		\pgfpathmoveto{\pgfqpoint{-\wA}{-\hA}}
+		\pgfpathlineto{\pgfqpoint{-\wB}{-\hA}}
+		\pgfpathlineto{\pgfqpoint{-\wB}{\hA}}
+		\pgfpathlineto{\pgfqpoint{-\wC}{\hA}}
+		\pgfpathlineto{\pgfqpoint{-\wC}{\hB}}
+		\pgfpathlineto{\pgfqpoint{-\wD}{\hB}}
+		\pgfpathlineto{\pgfqpoint{-\wD}{-\hC}}
+		\pgfpathlineto{\pgfqpoint{-\wE}{-\hC}}
+    }
 }
 
 % [ Block : <Gain> ]
