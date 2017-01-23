@@ -23,7 +23,7 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%% Package Identification %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \NeedsTeXFormat{LaTeX2e}[1994/06/01]
-\ProvidesPackage{simulink}[2016/11/28 v0.03c Simulink Shapes for TikZ]
+\ProvidesPackage{simulink}[2017/01/23 v0.03d Simulink Shapes for TikZ]
 
 %%%%%%%%%%%%%%%%%%%%%%%% Package Requirements %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % As this is a TikZ package, we should verify that the document actually have
@@ -73,6 +73,7 @@
     }
     
     \anchor{portA}{\pgfqpoint{\halfwidth}{0cm}}
+    \anchor{outA}{\pgfqpoint{\halfwidth}{0cm}}
     \backgroundpath{
         % Display port number :
         \pgfkeysgetvalue{/tikz/port number}{\portnumber}
@@ -128,6 +129,7 @@
     }
 
     \anchor{portA}{\pgfqpoint{\halfwidth}{0cm}}
+    \anchor{outA}{\pgfqpoint{\halfwidth}{0cm}}
     \anchorborder{
         \pgf@xa=\pgf@x%
         \pgf@ya=\pgf@y%
@@ -181,6 +183,7 @@
 
 
     \anchor{portA}{\pgfqpoint{\halfwidth}{0cm}}
+    \anchor{outA}{\pgfqpoint{\halfwidth}{0cm}}
     \anchorborder{
         \pgf@xa=\pgf@x%
         \pgf@ya=\pgf@y%
@@ -235,7 +238,9 @@
     }
 
     \anchor{portA}{\pgfqpoint{-\halfwidth}{0cm}}
+    \anchor{inA}{\pgfqpoint{-\halfwidth}{0cm}}
     \anchor{portB}{\pgfqpoint{\halfwidth}{0cm}}
+    \anchor{outA}{\pgfqpoint{\halfwidth}{0cm}}
     \anchorborder{
         \pgf@xa=\pgf@x%
         \pgf@ya=\pgf@y%
@@ -277,7 +282,9 @@
     }
 
     \anchor{portA}{\pgfqpoint{-\halfwidth}{0cm}}
+    \anchor{inA}{\pgfqpoint{-\halfwidth}{0cm}}
     \anchor{portB}{\pgfqpoint{\halfwidth}{0cm}}
+    \anchor{outA}{\pgfqpoint{\halfwidth}{0cm}}
     \anchorborder{
         \pgf@xa=\pgf@x%
         \pgf@ya=\pgf@y%
@@ -320,7 +327,9 @@
     }
 
     \anchor{portA}{\pgfqpoint{-\halfwidth}{0cm}}
+    \anchor{inA}{\pgfqpoint{-\halfwidth}{0cm}}
     \anchor{portB}{\pgfqpoint{\halfwidth}{0cm}}
+    \anchor{outA}{\pgfqpoint{\halfwidth}{0cm}}
     \anchorborder{
         \pgf@xa=\pgf@x%
         \pgf@ya=\pgf@y%
@@ -332,31 +341,31 @@
         \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}%
     }
     \backgroundpath{
-		% Drawing the box of the Block :
+        % Drawing the box of the Block :
         \pgfpathmoveto{\pgfqpoint{\halfwidth}{\halfheight}}
         \pgfpathlineto{\pgfqpoint{\halfwidth}{-\halfheight}}
         \pgfpathlineto{\pgfqpoint{-\halfwidth}{-\halfheight}}
         \pgfpathlineto{\pgfqpoint{-\halfwidth}{\halfheight}}
         \pgfpathlineto{\pgfqpoint{\halfwidth}{\halfheight}}
-		% Setting dimensions for the Block icon
-		\newdimen\basedim \pgfmathsetlength\basedim{\halfwidth*3/4*2/4}
-		\newdimen\wA \pgfmathsetlength\wA{\halfwidth*3/4}
-		\newdimen\hA \pgfmathsetlength\hA{\halfheight*3/4}
-		\newdimen\wB \pgfmathsetlength\wB{\wA-\basedim}
-		\newdimen\wC \pgfmathsetlength\wC{\wB-\basedim}
-		\newdimen\hB \pgfmathsetlength\hB{\halfheight*1/16}
-		\newdimen\wD \pgfmathsetlength\wD{\wC-\basedim}
-		\newdimen\hC \pgfmathsetlength\hC{\halfheight*7/16}
-		\newdimen\wE \pgfmathsetlength\wE{\wD-\basedim}
-		% Drawing the Block icon
-		\pgfpathmoveto{\pgfqpoint{-\wA}{-\hA}}
-		\pgfpathlineto{\pgfqpoint{-\wB}{-\hA}}
-		\pgfpathlineto{\pgfqpoint{-\wB}{\hA}}
-		\pgfpathlineto{\pgfqpoint{-\wC}{\hA}}
-		\pgfpathlineto{\pgfqpoint{-\wC}{\hB}}
-		\pgfpathlineto{\pgfqpoint{-\wD}{\hB}}
-		\pgfpathlineto{\pgfqpoint{-\wD}{-\hC}}
-		\pgfpathlineto{\pgfqpoint{-\wE}{-\hC}}
+        % Setting dimensions for the Block icon
+        \newdimen\basedim \pgfmathsetlength\basedim{\halfwidth*3/4*2/4}
+        \newdimen\wA \pgfmathsetlength\wA{\halfwidth*3/4}
+        \newdimen\hA \pgfmathsetlength\hA{\halfheight*3/4}
+        \newdimen\wB \pgfmathsetlength\wB{\wA-\basedim}
+        \newdimen\wC \pgfmathsetlength\wC{\wB-\basedim}
+        \newdimen\hB \pgfmathsetlength\hB{\halfheight*1/16}
+        \newdimen\wD \pgfmathsetlength\wD{\wC-\basedim}
+        \newdimen\hC \pgfmathsetlength\hC{\halfheight*7/16}
+        \newdimen\wE \pgfmathsetlength\wE{\wD-\basedim}
+        % Drawing the Block icon
+        \pgfpathmoveto{\pgfqpoint{-\wA}{-\hA}}
+        \pgfpathlineto{\pgfqpoint{-\wB}{-\hA}}
+        \pgfpathlineto{\pgfqpoint{-\wB}{\hA}}
+        \pgfpathlineto{\pgfqpoint{-\wC}{\hA}}
+        \pgfpathlineto{\pgfqpoint{-\wC}{\hB}}
+        \pgfpathlineto{\pgfqpoint{-\wD}{\hB}}
+        \pgfpathlineto{\pgfqpoint{-\wD}{-\hC}}
+        \pgfpathlineto{\pgfqpoint{-\wE}{-\hC}}
     }
 }
 
@@ -380,7 +389,9 @@
     }
 
     \anchor{portA}{\pgfqpoint{-\halfwidth}{0cm}}
+    \anchor{inA}{\pgfqpoint{-\halfwidth}{0cm}}
     \anchor{portB}{\pgfqpoint{\halfwidth}{0cm}}
+    \anchor{outA}{\pgfqpoint{\halfwidth}{0cm}}
     \anchorborder{
         \pgf@xa=\pgf@x%
         \pgf@ya=\pgf@y%
@@ -433,7 +444,9 @@
     }
 
     \anchor{portA}{\pgfqpoint{-\halfwidth}{0cm}}
+    \anchor{inA}{\pgfqpoint{-\halfwidth}{0cm}}
     \anchor{portB}{\pgfqpoint{\halfwidth}{0cm}}
+    \anchor{outA}{\pgfqpoint{\halfwidth}{0cm}}
     \anchorborder{
         \pgf@xa=\pgf@x%
         \pgf@ya=\pgf@y%
@@ -492,7 +505,9 @@
     }
 
     \anchor{portA}{\pgfqpoint{-\halfwidth}{0cm}}
+    \anchor{inA}{\pgfqpoint{-\halfwidth}{0cm}}
     \anchor{portB}{\pgfqpoint{\halfwidth}{0cm}}
+    \anchor{outA}{\pgfqpoint{\halfwidth}{0cm}}
     \anchorborder{
         \pgf@xa=\pgf@x%
         \pgf@ya=\pgf@y%
@@ -539,7 +554,9 @@
     }
 
     \anchor{portA}{\pgfqpoint{-\halfwidth}{0cm}}
+    \anchor{inA}{\pgfqpoint{-\halfwidth}{0cm}}
     \anchor{portB}{\pgfqpoint{\halfwidth}{0cm}}
+    \anchor{outA}{\pgfqpoint{\halfwidth}{0cm}}
     \anchorborder{
         \pgf@xa=\pgf@x%
         \pgf@ya=\pgf@y%
@@ -608,8 +625,11 @@
     }
 
     \anchor{portA}{\pgfqpoint{-\halfwidth}{\quartheight}}
+    \anchor{inA}{\pgfqpoint{-\halfwidth}{\quartheight}}
     \anchor{portB}{\pgfqpoint{-\halfwidth}{-\quartheight}}
+    \anchor{inB}{\pgfqpoint{-\halfwidth}{-\quartheight}}
     \anchor{portC}{\pgfqpoint{\halfwidth}{0cm}}
+    \anchor{outA}{\pgfqpoint{\halfwidth}{0cm}}
     \anchorborder{
         \pgf@xa=\pgf@x%
         \pgf@ya=\pgf@y%
@@ -657,9 +677,13 @@
     }
 
     \anchor{portA}{\pgfqpoint{-\halfwidth}{\posientree}}
+    \anchor{inA}{\pgfqpoint{-\halfwidth}{\posientree}}
     \anchor{portB}{\pgfqpoint{-\halfwidth}{0cm}}
+    \anchor{inB}{\pgfqpoint{-\halfwidth}{0cm}}
     \anchor{portC}{\pgfqpoint{-\halfwidth}{-\posientree}}
+    \anchor{inC}{\pgfqpoint{-\halfwidth}{-\posientree}}
     \anchor{portD}{\pgfqpoint{\halfwidth}{0cm}}
+    \anchor{outA}{\pgfqpoint{\halfwidth}{0cm}}
     \anchorborder{
         \pgf@xa=\pgf@x%
         \pgf@ya=\pgf@y%
@@ -714,6 +738,7 @@
     \inheritbackgroundpath[from=skInport]
     \inheritanchor[from=skInport]{center}
     \anchor{portA}{\pgfqpoint{-\halfwidth}{0cm}}
+    \anchor{inA}{\pgfqpoint{-\halfwidth}{0cm}}
     \anchorborder{
         \pgf@xa=\pgf@x%
         \pgf@ya=\pgf@y%
@@ -756,6 +781,7 @@
     }
 
     \anchor{portA}{\pgfqpoint{-\halfwidth}{0cm}}
+    \anchor{inA}{\pgfqpoint{-\halfwidth}{0cm}}
     \anchorborder{
         \pgf@xa=\pgf@x%
         \pgf@ya=\pgf@y%
