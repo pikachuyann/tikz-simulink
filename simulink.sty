@@ -1,7 +1,7 @@
 % simulink.sty --- a LaTeX package to more easily write Simulink models
 %                  through TikZ environments, by providing Simulink blocks
 %                  as directly usable TikZ shapes.
-%% Copyright 2016 Yann Duplouy
+%% Copyright 2016-2017 Yann Duplouy
 %
 % Permission is hereby granted, free of charge, to any person obtaining a copy
 % of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,7 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%% Package Identification %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \NeedsTeXFormat{LaTeX2e}[1994/06/01]
-\ProvidesPackage{simulink}[2017/01/23 v0.03d Simulink Shapes for TikZ]
+\ProvidesPackage{simulink}[2017/06/28 v0.04 Simulink Shapes for TikZ]
 
 %%%%%%%%%%%%%%%%%%%%%%%% Package Requirements %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % As this is a TikZ package, we should verify that the document actually have
@@ -32,6 +32,17 @@
 \usetikzlibrary{shapes,positioning}
 % The following package is required to use \widthof :
 \RequirePackage{calc}
+
+%%%%%%%%%%%%%%%%%%%%%%%% Package Options %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Definition of which variables will store the options :
+\newif\ifSKBetter               % Will we use symbols more convenient to
+                                % understand at first glance the Simulink model
+                                % or will we use default symbols ?
+% Definition of default values for these variables :
+\SKBetterfalse
+% Parsing options given to the package :
+\DeclareOption{BetterSymbols}{\SKBettertrue}
+\ProcessOptions\relax
 
 %%%%%%%%%%%%%%%%%%%%%%%% Initial Code %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \makeatletter
@@ -486,7 +497,7 @@
 }
 
 % [ Block : <Integrator> ]
-% http://www.mathworks.com/help/simulink/slref/unitdelay.html
+% http://www.mathworks.com/help/simulink/slref/integrator.html
 \pgfdeclareshape{skIntegrator}
 {
     \savedanchor{\center}{\pgfpointorigin}
@@ -519,7 +530,11 @@
         \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}%
     }
     \backgroundpath{
-        \pgftext{$\frac{1}{\mathrm{s}}$}
+        \ifSKBetter
+            \pgftext{$\int$}
+        \else
+            \pgftext{$\frac{1}{\mathrm{s}}$}
+        \fi
         \pgfpathmoveto{\pgfqpoint{\halfwidth}{\halfheight}}
         \pgfpathlineto{\pgfqpoint{\halfwidth}{-\halfheight}}
         \pgfpathlineto{\pgfqpoint{-\halfwidth}{-\halfheight}}

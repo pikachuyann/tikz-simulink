@@ -1,5 +1,5 @@
 % simulink.tex --- Documentation (and examples) for the LaTeX package.
-%% Copyright 2016 Yann Duplouy
+%% Copyright 2016-2017 Yann Duplouy
 %
 % Permission is hereby granted, free of charge, to any person obtaining a copy
 % of this software and associated documentation files (the "Software"), to deal
@@ -32,7 +32,7 @@
 \newcommand{\skstyversion}{$\alpha$ release}
 \title{simulink.sty --- A \LaTeX{} package to easily create Simulink models
        with TikZ.\\ {\large \skstyversion}}
-\author{(c) 2016 Yann Duplouy}
+\author{(c) 2016--2017 Yann Duplouy}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
@@ -51,40 +51,58 @@ drawing Simulink models, which is by taking screenshots of Matlab-Simulink.
 \section{Currently available Simulink Blocks}
     The following Simulink blocks are currently available in the package :
 \begin{center}
-    \begin{tabular}{|c|c|c|}
+    \begin{tabular}{|c|c|c|c|}
         \hline
-        {\bf Block Name} & {\bf Shape Name} & {\bf Default shape} \\
+        {\bf Block Name} & {\bf Shape Name} & {\bf Default shape} & 
+        {\bf Better Shape} \\
         \hline \hline
-        Inport & {\tt skInport} & \skBlockO{skInport}{$\ell_1$} \\
+        Inport & {\tt skInport} & \skBlockO{skInport}{$\ell_1$} & \\
         \hline
-        Outport & {\tt skOutport} & \skBlockI{skOutport}{$\ell_1$} \\
+        Outport & {\tt skOutport} & \skBlockI{skOutport}{$\ell_1$} & \\
         \hline
-        Constant & {\tt skConstant} & \skBlockO{skConstant,cstval=$c$}{$\ell_1$} \\
+        Constant & {\tt skConstant} &
+        \skBlockO{skConstant,cstval=$c$}{$\ell_1$} & \\
         \hline
-        Add (2-ports) & {\tt skAdd} & \skBlockIIO{skAdd}{$\ell_1$}{$\ell_2$}{$\ell_3$} \\
+        Add (2-ports) & {\tt skAdd} &
+        \skBlockIIO{skAdd}{$\ell_1$}{$\ell_2$}{$\ell_3$} & \\
         \hline
-        Unit Delay & {\tt skUnitDelay} & \skBlockIO{skUnitDelay}{$\ell_1$}{$\ell_2$} \\
+        Unit Delay & {\tt skUnitDelay} &
+        \skBlockIO{skUnitDelay}{$\ell_1$}{$\ell_2$} & \\
         \hline
-        Delay & {\tt skDelay} & \skBlockIO{skDelay,delayval=k}{$\ell_1$}{$\ell_2$} \\
+        Delay & {\tt skDelay} &
+        \skBlockIO{skDelay,delayval=k}{$\ell_1$}{$\ell_2$} & \\
         \hline
-        Zero-Order Hold & {\tt skZeroOrderHold} & \skBlockIO{skZeroOrderHold}{$\ell_1$}{$\ell_2$} \\
+        Zero-Order Hold & {\tt skZeroOrderHold} &
+        \skBlockIO{skZeroOrderHold}{$\ell_1$}{$\ell_2$} & \\
         \hline
-        Gain & {\tt skGain} & \skBlockIO{skGain}{$\ell_1$}{$\ell_2$} \\
+        Gain & {\tt skGain} & \skBlockIO{skGain}{$\ell_1$}{$\ell_2$} & \\
         \hline
-        Integrator & {\tt skIntegrator} & \skBlockIO{skIntegrator}{$\ell_1$}{$\ell_2$} \\
+        Integrator & {\tt skIntegrator} &
+        \skBlockIO{skIntegrator}{$\ell_1$}{$\ell_2$} & 
+        \SKBettertrue
+        \skBlockIO{skIntegrator}{$\ell_1$}{$\ell_2$}
+        \SKBetterfalse \\
         \hline
-        Sine Wave (continuous) & {\tt skSineWave} & \skBlockO{skSineWave}{$\ell_1$} \\
+        Sine Wave (continuous) & {\tt skSineWave} &
+        \skBlockO{skSineWave}{$\ell_1$} & \\
         \hline
-        Transport Delay & {\tt skTransportDelay} & \skBlockIO{skTransportDelay}{$\ell_1$}{$\ell_2$} \\
+        Transport Delay & {\tt skTransportDelay} &
+        \skBlockIO{skTransportDelay}{$\ell_1$}{$\ell_2$} & \\
         \hline
-        Relay & {\tt skRelay} & \skBlockIO{skRelay}{$\ell_1$}{$\ell_2$} \\
+        Relay & {\tt skRelay} & \skBlockIO{skRelay}{$\ell_1$}{$\ell_2$} & \\
         \hline
-        Switch & {\tt skSwitch} & \skBlockIIIO{skSwitch}{$\ell_1$}{$\ell_2$}{$\ell_3$}{$\ell_4$} \\
+        Switch & {\tt skSwitch} &
+        \skBlockIIIO{skSwitch}{$\ell_1$}{$\ell_2$}{$\ell_3$}{$\ell_4$} & \\
         \hline
-        Scope & {\tt skScope} & \skBlockI{skScope}{$\ell_1$} \\
+        Scope & {\tt skScope} & \skBlockI{skScope}{$\ell_1$} & \\
         \hline
     \end{tabular}
 \end{center}
+
+    Some of the blocks have shapes that are difficult to recognize for someone
+    not used to Simulink. For that matter, an option, named
+    \texttt{BetterShape}, has been added to \texttt{simulink.sty} so that
+    blocks display in a more understandable shape.
 
 \section{An example of Simulink model drawn through TikZ}
 \begin{center}
