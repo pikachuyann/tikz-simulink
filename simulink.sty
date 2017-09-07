@@ -23,7 +23,7 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%% Package Identification %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \NeedsTeXFormat{LaTeX2e}[1994/06/01]
-\ProvidesPackage{simulink}[2017/06/28 v0.04 Simulink Shapes for TikZ]
+\ProvidesPackage{simulink}[2017/09/07 v0.04a Simulink Shapes for TikZ]
 
 %%%%%%%%%%%%%%%%%%%%%%%% Package Requirements %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % As this is a TikZ package, we should verify that the document actually have
@@ -660,6 +660,64 @@
         \pgfmathsetlength{\pgf@xb}{\halfwidth-0.7\pgf@xa}
         \pgftext[x=-\pgf@xb,y=\quartheight]{\small +}
         \pgftext[x=-\pgf@xb,y=-\quartheight]{\small +}
+        \pgfpathmoveto{\pgfqpoint{\halfwidth}{\halfheight}}
+        \pgfpathlineto{\pgfqpoint{\halfwidth}{-\halfheight}}
+        \pgfpathlineto{\pgfqpoint{-\halfwidth}{-\halfheight}}
+        \pgfpathlineto{\pgfqpoint{-\halfwidth}{\halfheight}}
+        \pgfpathlineto{\pgfqpoint{\halfwidth}{\halfheight}}
+    }
+}
+
+% [ Product ]
+% http://www.mathworks.com/help/simulink/slref/product.html
+%
+% ToDo : The current version of the Product block is uncomplete in two ways :
+%   a. It only takes two inputs, while the Simulink block can take any integer
+%      number of inputs
+%   b. It only uses product sign, while the Simulink block can also use the minus
+%      sign or specify spacers for clarity (when there is a lot of inputs).
+\pgfdeclareshape{skProduct}
+{
+    \savedanchor{\center}{\pgfpointorigin}
+    \anchor{center}{\center}
+
+    \saveddimen\halfwidth{
+        \pgf@xa=0cm
+        \pgfmathsetlength\pgf@x{\pgfkeysvalueof{/tikz/block width}/2}
+        \ifdim\pgf@xa=\pgf@x \pgf@x=0.4cm \fi
+    }
+    \saveddimen\halfheight{
+        \pgf@xa=0cm
+        \pgfmathsetlength\pgf@x{\pgfkeysvalueof{/tikz/block height}/2}
+        \ifdim\pgf@xa=\pgf@x \pgf@x=0.4cm \fi
+    }
+    \saveddimen\quartheight{
+        \pgf@xa=0cm
+        \pgfmathsetlength\pgf@x{\pgfkeysvalueof{/tikz/block height}/4}
+        \ifdim\pgf@xa=\pgf@x \pgf@x=0.2cm \fi
+    }
+
+    \anchor{portA}{\pgfqpoint{-\halfwidth}{\quartheight}}
+    \anchor{inA}{\pgfqpoint{-\halfwidth}{\quartheight}}
+    \anchor{portB}{\pgfqpoint{-\halfwidth}{-\quartheight}}
+    \anchor{inB}{\pgfqpoint{-\halfwidth}{-\quartheight}}
+    \anchor{portC}{\pgfqpoint{\halfwidth}{0cm}}
+    \anchor{outA}{\pgfqpoint{\halfwidth}{0cm}}
+    \anchorborder{
+        \pgf@xa=\pgf@x%
+        \pgf@ya=\pgf@y%
+        \pgf@xb=0cm%
+        \center%
+        \pgfmathsetlength\pgf@xc{\pgf@xa*\pgf@xa+\pgf@ya*\pgf@ya}
+        \pgfmathsetlength\pgf@xa{\pgf@xa/\pgf@xc*\halfwidth}
+        \pgfmathsetlength\pgf@ya{\pgf@ya/\pgf@xc*\halfheight}
+        \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}%
+    }
+    \backgroundpath{
+        \setlength{\pgf@xa}{\widthof{+}}
+        \pgfmathsetlength{\pgf@xb}{\halfwidth-0.7\pgf@xa}
+        \pgftext[x=-\pgf@xb,y=\quartheight]{\small $\times$}
+        \pgftext[x=-\pgf@xb,y=-\quartheight]{\small $\times$}
         \pgfpathmoveto{\pgfqpoint{\halfwidth}{\halfheight}}
         \pgfpathlineto{\pgfqpoint{\halfwidth}{-\halfheight}}
         \pgfpathlineto{\pgfqpoint{-\halfwidth}{-\halfheight}}
